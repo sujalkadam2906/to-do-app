@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow — Professional Task Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="app-shell">
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="logo">✓</div>
+                <h1>TaskFlow</h1>
+                <span class="tagline">Professional Task Manager</span>
+            </div>
+
+            <nav class="nav" aria-label="Filters">
+                <button class="nav-btn active" onclick="filterTasks('all')" data-filter="all">All Tasks</button>
+                <button class="nav-btn" onclick="filterTasks('active')" data-filter="active">Active</button>
+                <button class="nav-btn" onclick="filterTasks('completed')" data-filter="completed">Completed</button>
+                <button class="nav-btn emergency" onclick="filterTasks('emergency')" data-filter="emergency">Emergency</button>
+            </nav>
+
+            <div class="stats-card">
+                <h3>Today</h3>
+                <div class="stats-row">
+                    <div>
+                        <span class="stat-num" id="stat-total">0</span>
+                        <span class="stat-label">Total</span>
+                    </div>
+                    <div>
+                        <span class="stat-num" id="stat-completed">0</span>
+                        <span class="stat-label">Done</span>
+                    </div>
+                    <div>
+                        <span class="stat-num" id="stat-emergency">0</span>
+                        <span class="stat-label">Urgent</span>
+                    </div>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="header">
+                <div>
+                    <h2>Dashboard</h2>
+                    <p id="date-display"></p>
+                </div>
+                <div class="search-wrap">
+                    <input type="text" id="search-input" placeholder="Search tasks, tags..." oninput="searchTasks(this.value)">
+                </div>
+            </header>
+
+            <section class="input-panel" aria-label="Add new task">
+                <form id="task-form" onsubmit="addTask(event)">
+                    <div class="input-row">
+                        <input type="text" id="task-title" placeholder="What needs to be done?" required autocomplete="off">
+                        <select id="task-priority" required aria-label="Priority">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                            <option value="emergency">Emergency</option>
+                        </select>
+                    </div>
+                    <div class="input-row">
+                        <textarea id="task-desc" placeholder="Description (optional)" rows="2"></textarea>
+                        <input type="date" id="task-deadline" required aria-label="Deadline">
+                        <button type="submit" class="btn-primary">+ Add Task</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="task-board" aria-label="Task list">
+                <div id="task-list" class="task-list"></div>
+                <div id="empty-state" class="empty-state hidden">
+                    <div class="empty-icon">📋</div>
+                    <h3>No tasks found</h3>
+                    <p>Start by adding a new task above.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
